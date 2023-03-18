@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fooderlich/card1.dart';
-import 'package:fooderlich/card2.dart';
-import 'package:fooderlich/card3.dart';
+import 'package:fooderlich/components/card1.dart';
+import 'package:fooderlich/components/card2.dart';
+import 'package:fooderlich/components/card3.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -34,24 +35,24 @@ class _HomeState extends State<Home> {
       ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          selectedItemColor:
-              Theme.of(context).textSelectionTheme.selectionColor,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.card_giftcard),
-              label: 'Card',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.card_giftcard),
-              label: 'Card',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.card_giftcard),
-              label: 'Card',
-            ),
-          ]),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Recipes',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'To Buy',
+          ),
+        ],
+      ),
     );
   }
 }
