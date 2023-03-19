@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fooderlich/components/card1.dart';
-import 'package:fooderlich/components/card2.dart';
-import 'package:fooderlich/components/card3.dart';
+import 'package:fooderlich/screens/explore_screen.dart';
+import 'package:fooderlich/screens/recipes_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,11 +10,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
   static List<Widget> pages = <Widget>[
-    const Card1(),
-    const Card2(),
-    const Card3(),
+    ExploreScreen(),
+    RecipesScreen(),
+    ExampleScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -55,4 +54,131 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+
+class ExampleScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Text('Sliver Example'),
+            floating: true,
+            flexibleSpace: Placeholder(),
+            expandedHeight: 200,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ListTile(title: Text('Item $index'));
+              },
+              childCount: 10,
+            ),
+          ),
+          SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  color: Colors.pink,
+                  child: Center(child: Text('Item $index')),
+                );
+              },
+              childCount: 6,
+            ),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.all(10),
+            sliver: SliverFixedExtentList(
+              itemExtent: 50,
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Container(
+                    color: Colors.green,
+                    child: Center(child: Text('Item $index')),
+                  );
+                },
+                childCount: 4,
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 200,
+              color: Colors.blue,
+              child: Center(child: Text('SliverToBoxAdapter')),
+            ),
+          ),
+          SliverFillRemaining(
+            child: Container(
+              color: Colors.yellow,
+              child: Center(child: Text('SliverFillRemaining')),
+            ),
+          ),
+          SliverPersistentHeader(
+            delegate: MyPersistentHeaderDelegate(),
+            pinned: true,
+          ),
+          // SliverOverlapInjector(
+          //   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          // ),
+          SliverSafeArea(
+            top: false,
+            bottom: false,
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return ListTile(title: Text('Item $index'));
+                },
+                childCount: 10,
+              ),
+            ),
+          ),
+          SliverAnimatedList(
+            initialItemCount: 3,
+            itemBuilder: (context, index, animation) {
+              return SizeTransition(
+                sizeFactor: animation,
+                child: ListTile(title: Text('Item $index')),
+              );
+            },
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 200,
+              color: Colors.purple,
+              child: Center(child: Text('SliverToBoxAdapter')),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+class MyPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.orange,
+      child: Center(child: Text('Persistent Header')),
+    );
+  }
+
+  @override
+  double get maxExtent => 150;
+
+  @override
+  double get minExtent => 100;
+  
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+
 }

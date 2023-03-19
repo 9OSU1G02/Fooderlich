@@ -1,9 +1,26 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fooderlich/fooderlich_theme.dart';
+import 'package:fooderlich/models/models.dart';
 
 class Card3 extends StatelessWidget {
-  const Card3({super.key});
+  const Card3({super.key, required this.recipe});
+  final ExploreRecipe recipe;
+  List<Widget> createTagChips() {
+    final chips = <Widget>[];
+    recipe.tags.take(6).forEach((element) {
+      final chip = Chip(
+        label: Text(
+          element,
+          style: FooderlichTheme.darkTextTheme.bodyText1,
+        ),
+        backgroundColor: Colors.black.withOpacity(0.7),
+      );
+      chips.add(chip);
+    });
+    return chips;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -12,12 +29,12 @@ class Card3 extends StatelessWidget {
           width: 350,
           height: 450,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/mag2.png'),
+            image: AssetImage(recipe.backgroundImage),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(10.0),
           ),
         ),
@@ -45,7 +62,7 @@ class Card3 extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    'Recipe Trends',
+                    recipe.title,
                     style: FooderlichTheme.darkTextTheme.displayMedium,
                   ),
                   const SizedBox(
@@ -59,36 +76,7 @@ class Card3 extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 spacing: 12,
                 runSpacing: 12,
-                children: [
-                  Chip(
-                    label: Text(
-                      "Healthy",
-                      style: FooderlichTheme.darkTextTheme.bodyLarge,
-                    ),
-                   onDeleted: () => log("delete"),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Vegan",
-                      style: FooderlichTheme.darkTextTheme.bodyLarge,
-                    ),
-                    onDeleted: () => log("delete"),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Carrots",
-                      style: FooderlichTheme.darkTextTheme.bodyLarge,
-                    ),
-                    onDeleted: () => log("delete"),
-                  ),
-                  Chip(
-                    label: Text(
-                      "Kale",
-                      style: FooderlichTheme.darkTextTheme.bodyLarge,
-                    ),
-                    onDeleted: () => log("delete"),
-                  ),
-                ],
+                children: createTagChips(),
               ),
             ),
           ],
