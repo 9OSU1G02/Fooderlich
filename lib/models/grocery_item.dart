@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/painting.dart';
-
+import 'package:fooderlich/components/grocery_tile.dart';
 enum Importance {
   low,
   medium,
@@ -22,7 +22,7 @@ class GroceryItem {
     required this.color,
     required this.quantity,
     required this.date,
-    required this.isComplete,
+    this.isComplete = false,
   });
 
   GroceryItem copyWith({
