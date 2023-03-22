@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fooderlich/components/grocery_tile.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
@@ -57,6 +58,10 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
               } else {
                 widget.onCreate(groceryItem);
               }
+              context.goNamed(
+                'home',
+                params: {'tab': '${FooderlichTab.toBuy}'},
+              );
             },
             icon: const Icon(Icons.check),
           ),

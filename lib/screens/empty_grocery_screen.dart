@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../models/models.dart';
 
@@ -32,7 +33,10 @@ class EmptyGroceryScreen extends StatelessWidget {
             ),
             color: Colors.green,
             onPressed: () {
-              Provider.of<TabManager>(context, listen: false).goToRecipes();
+              context.goNamed(
+                'home',
+                params: {'tab': '${FooderlichTab.recipes}'},
+              );
             },
             child: const Text("Browse Recipes"),
           ),
